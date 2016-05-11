@@ -11,7 +11,9 @@
 #include "RCSwitch.h"
 
 #define RX_PIN 2
+#define RX_POWER_PIN 4
 #define TX_PIN 3
+#define TX_POWER_PIN 12
 
 unsigned long before;
 unsigned int indexReceive = 0;
@@ -28,6 +30,15 @@ void toBinStr(long value, char* output, int i) {
 void setup() {
 	Serial.begin(9600);
 
+	pinMode(RX_POWER_PIN, OUTPUT);
+	pinMode(TX_POWER_PIN, OUTPUT);
+	pinMode(TX_PIN, OUTPUT);
+
+	digitalWrite(TX_POWER_PIN, LOW);
+	digitalWrite(TX_PIN, LOW);
+	mySwitch.disableTransmit();
+
+	digitalWrite(RX_POWER_PIN, HIGH);
 	mySwitch.enableReceive(digitalPinToInterrupt(RX_PIN)); // Receiver on interrupt 0 => that is pin #2
 	mySwitch.setProtocol(6);
 
