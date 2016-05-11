@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cp ./RCSwitch.cpp /cygdrive/c/Users/Octavian/Documents/Arduino/libraries/rc-switch-master/RCSwitch.cpp
+cp ./RCSwitch.h /cygdrive/c/Users/Octavian/Documents/Arduino/libraries/rc-switch-master/RCSwitch.h
+cp ./rfio_arduino.cpp /cygdrive/c/Users/Octavian/Documents/Arduino/rfio_arduino/rfio_arduino.ino
+
