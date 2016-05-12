@@ -1,22 +1,23 @@
-// Only modify this file to include
-// - function definitions (prototypes)
-// - include files
-// - extern variable definitions
-// In the appropriate section
-
 #ifndef _rfio_arduino_H_
 #define _rfio_arduino_H_
-#include "Arduino.h"
-//add your includes for the project rfio_arduino here
 
+#define RX_PIN 2
+#define RX_POWER_PIN 4
+#define TX_PIN 3
+#define TX_POWER_PIN 12
 
-//end of add your includes here
+typedef struct {
+	unsigned int indexReceive;
+	char startLabel[5];
+	short id;
+	short canal;
+	short temperature;
+	char temperatureStr[6];
+	char endLabel[5];
+	unsigned long time;
+} TemperatureMessage;
 
+void toBinStr(long value, char* output, int i);
+TemperatureMessage *readReceivedValue(unsigned long receivedValue);
 
-//add your function definitions for the project rfio_arduino here
-
-
-
-
-//Do not add code below this line
-#endif /* _rfio_arduino_H_ */
+#endif
