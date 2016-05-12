@@ -68,6 +68,7 @@ void loop() {
 				(*temperatureMessage).endLabel, (*temperatureMessage).time);
 		Serial.println(outputString);
 
+		free(temperatureMessage);
 	}
 }
 
