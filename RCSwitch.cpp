@@ -73,12 +73,12 @@ static const RCSwitch::Protocol proto[] = {
 #else
 static const RCSwitch::Protocol PROGMEM proto[] = {
 #endif
-    { 426, {  1, 19 }, {  1,  5 }, {  1,  9 } },    // protocol 6 put my protocol first
-    { 350, {  1, 31 }, {  1,  3 }, {  3,  1 } },    // protocol 1
-    { 650, {  1, 10 }, {  1,  2 }, {  2,  1 } },    // protocol 2
-    { 100, { 30, 71 }, {  4, 11 }, {  9,  6 } },    // protocol 3
-    { 380, {  1,  6 }, {  1,  3 }, {  3,  1 } },    // protocol 4
-    { 500, {  6, 14 }, {  1,  2 }, {  2,  1 } },    // protocol 5
+    { 426, {  1, 19 }, {  1,  5 }, {  1,  9 } },    // protocol 1 put my protocol first
+//    { 350, {  1, 31 }, {  1,  3 }, {  3,  1 } },    // protocol 1
+//    { 650, {  1, 10 }, {  1,  2 }, {  2,  1 } },    // protocol 2
+//    { 100, { 30, 71 }, {  4, 11 }, {  9,  6 } },    // protocol 3
+//    { 380, {  1,  6 }, {  1,  3 }, {  3,  1 } },    // protocol 4
+//    { 500, {  6, 14 }, {  1,  2 }, {  2,  1 } },    // protocol 5
 };
 
 enum {
@@ -708,7 +708,7 @@ void RECEIVE_ATTR RCSwitch::handleInterrupt() {
 	// where possible remove noise
 	if (duration < 226) {
 		return;
-	} else if (changeCount < 1 && diff(RCSwitch::timings[changeCount - 1], 426) < 200 && duration < 1930) {
+	} else if (changeCount > 1 && diff(RCSwitch::timings[changeCount - 1], 426) < 200 && duration < 1930) {
 		return;
 	}
 
