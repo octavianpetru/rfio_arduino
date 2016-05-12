@@ -1,4 +1,4 @@
-#if not defined(ARDUINO) && ARDUINO >= 100
+#if not defined(ARDUINO)
 #include "rfio_arduino.h"
 
 #include <Arduino.h>
@@ -30,14 +30,13 @@ void toBinStr(long value, char* output, int i) {
 void setup() {
 	Serial.begin(9600);
 
-	pinMode(RX_POWER_PIN, OUTPUT);
 	pinMode(TX_POWER_PIN, OUTPUT);
-	pinMode(TX_PIN, OUTPUT);
-
 	digitalWrite(TX_POWER_PIN, LOW);
-	digitalWrite(TX_PIN, LOW);
 	mySwitch.disableTransmit();
+	pinMode(TX_PIN, OUTPUT);
+	digitalWrite(TX_PIN, LOW);
 
+	pinMode(RX_POWER_PIN, OUTPUT);
 	digitalWrite(RX_POWER_PIN, HIGH);
 	mySwitch.enableReceive(digitalPinToInterrupt(RX_PIN)); // Receiver on interrupt 0 => that is pin #2
 	mySwitch.setProtocol(6);
