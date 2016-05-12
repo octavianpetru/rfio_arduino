@@ -67,7 +67,7 @@ void loop() {
 				(*temperatureMessage).endLabel, (*temperatureMessage).time);
 		Serial.println(outputString);
 
-		delay(1000);
+		delay(2000);
 
 		char s[13] = { '\0' };
 		toBinStr((*temperatureMessage).temperature, s, 12);
