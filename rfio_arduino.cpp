@@ -19,18 +19,17 @@ void setup() {
 
 	// TX_POWER_PIN
 	pinMode(TX_POWER_PIN, OUTPUT);
-	digitalWrite(TX_POWER_PIN, LOW);
-	// disable transmit
-	mySwitch.disableTransmit();
-	pinMode(TX_PIN, OUTPUT);
-	digitalWrite(TX_PIN, LOW);
+	digitalWrite(TX_POWER_PIN, HIGH);
+	// enable transmit
+	mySwitch.enableTransmit(TX_PIN);
+	mySwitch.setProtocol(1);
+	mySwitch.setRepeatTransmit(8);
 
 	// RX_POWER_PIN
 	pinMode(RX_POWER_PIN, OUTPUT);
 	digitalWrite(RX_POWER_PIN, HIGH);
 	// enable receive
 	mySwitch.enableReceive(digitalPinToInterrupt(RX_PIN)); // Receiver on interrupt 0 => that is pin #2
-	mySwitch.setProtocol(6);
 
 	Serial.print("RCSWITCH_MAX_CHANGES: ");
 	Serial.println(RCSWITCH_MAX_CHANGES);
@@ -67,6 +66,18 @@ void loop() {
 				(*temperatureMessage).temperatureStr,
 				(*temperatureMessage).endLabel, (*temperatureMessage).time);
 		Serial.println(outputString);
+
+		delay(1000);
+
+		char s[13] = { '\0' };
+		toBinStr((*temperatureMessage).temperature, s, 12);
+		char str[38] = { '\0' };
+		sprintf(str, "1001000110010001%s110011000", s);
+		mySwitch.sendString(str);
+
+		char outputStringSend[160];
+		sprintf(outputStringSend,"%3d sent %3d\n", (*temperatureMessage).indexReceive, (*temperatureMessage).temperature);
+		Serial.println(outputStringSend);
 
 		free(temperatureMessage);
 	}
