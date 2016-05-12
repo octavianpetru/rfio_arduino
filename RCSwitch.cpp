@@ -705,8 +705,10 @@ void RECEIVE_ATTR RCSwitch::handleInterrupt() {
     repeatCount = 0;
   }
 
-	// if duration < 200 -> noise
-	if (duration < 200) {
+	// where possible remove noise
+	if (duration < 226) {
+		return;
+	} else if (changeCount < 1 && diff(RCSwitch::timings[changeCount - 1], 426) < 200 && duration < 1930) {
 		return;
 	}
 
