@@ -2,7 +2,6 @@
 #define _rfio_arduino_H_
 
 #define RX_PIN 2
-#define RX_POWER_PIN 4
 #define TX_PIN 3
 #define TX_POWER_PIN 12
 

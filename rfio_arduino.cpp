@@ -25,9 +25,6 @@ void setup() {
 	mySwitch.setProtocol(1);
 	mySwitch.setRepeatTransmit(8);
 
-	// RX_POWER_PIN
-	pinMode(RX_POWER_PIN, OUTPUT);
-	digitalWrite(RX_POWER_PIN, HIGH);
 	// enable receive
 	mySwitch.enableReceive(digitalPinToInterrupt(RX_PIN)); // Receiver on interrupt 0 => that is pin #2
 
@@ -67,14 +64,17 @@ void loop() {
 				(*temperatureMessage).endLabel, (*temperatureMessage).time);
 		Serial.println(outputString);
 
-		delay(2000);
+		// enable TX
+		digitalWrite(TX_POWER_PIN, HIGH);
+		delay(1000);
 
 		char s[13] = { '\0' };
 		toBinStr((*temperatureMessage).temperature, s, 12);
 		char str[38] = { '\0' };
 		sprintf(str, "1001000110010001%s110011000", s);
-		digitalWrite(TX_POWER_PIN, HIGH);
 		mySwitch.sendString(str);
+
+		// disable TX
 		digitalWrite(TX_POWER_PIN, LOW);
 
 		char outputStringSend[160];
